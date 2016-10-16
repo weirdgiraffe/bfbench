@@ -34,6 +34,17 @@ EOF
 chmod +x /bin/fabianishere-brainfuck
 }
 
+setup_rdebath-brainfuck() {
+$CLONE https://github.com/rdebath/Brainfuck.git rdebath-brainfuck
+cd rdebath-brainfuck/tritium
+make
+cat <<EOF>/bin/rdebath-brainfuck
+#!/bin/bash
+$MAINDIR/rdebath-brainfuck/tritium/bfi -b \$@
+EOF
+chmod +x /bin/rdebath-brainfuck
+}
+
 setup_brandly-bf-go() {
 go get github.com/brandly/bf.go
 cd $GOPATH/src/github.com/brandly/bf.go && go install
@@ -45,15 +56,26 @@ EOF
 chmod +x /bin/brandly-bf-go
 }
 
-setup_rdebath-brainfuck() {
-$CLONE https://github.com/rdebath/Brainfuck.git rdebath-brainfuck
-cd rdebath-brainfuck/tritium
-make
-cat <<EOF>/bin/rdebath-brainfuck
+setup_lazureykis-brainfuck() {
+go get github.com/lazureykis/brainfuck
+cd $GOPATH/src/github.com/lazureykis/brainfuck && go install
+mv $GOPATH/bin/brainfuck $GOPATH/bin/lazureykis-brainfuck
+cat <<EOF>/bin/lazureykis-brainfuck
 #!/bin/bash
-$MAINDIR/rdebath-brainfuck/tritium/bfi -b \$@
+$GOPATH/bin/lazureykis-brainfuck \$@
 EOF
-chmod +x /bin/rdebath-brainfuck
+chmod +x /bin/lazureykis-brainfuck
+}
+
+setup_kgabis-brainfuck-go() {
+go get github.com/kgabis/brainfuck-go
+cd $GOPATH/src/github.com/kgabis/brainfuck-go && go install
+mv $GOPATH/bin/brainfuck-go $GOPATH/bin/kgabis-brainfuck-go
+cat <<EOF>/bin/kgabis-brainfuck-go
+#!/bin/bash
+$GOPATH/bin/kgabis-brainfuck-go \$@
+EOF
+chmod +x /bin/kgabis-brainfuck-go
 }
 
 setup_weirdgiraffe-gobfcli() {
@@ -71,6 +93,8 @@ chmod +x /bin/weirdgiraffe-gobfcli
 COMPETITORS=" fabianishere-brainfuck"
 COMPETITORS+=" brandly-bf-go"
 COMPETITORS+=" rdebath-brainfuck"
+COMPETITORS+=" lazureykis-brainfuck"
+COMPETITORS+=" kgabis-brainfuck-go"
 COMPETITORS+=" weirdgiraffe-gobfcli"
 
 mkdir -p /output/

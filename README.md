@@ -42,5 +42,7 @@ sorry windoze, your brainfuck could not be compiled with clang and llvm.
 and with gcc it looks for LLVM, so, sorry, you are out
 
 sorry, redevined, your interpreter is to slow to be measured with other interpreters. It simply doesn't work
+
 sorry takano32, your go and python code simply doesn't work 
+
 sorry jakosa, your interpreter doesn't work
