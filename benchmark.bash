@@ -27,7 +27,6 @@ mkdir -p fabianishere-brainfuck-build
 cd fabianishere-brainfuck-build
 cmake -DCMAKE_COLOR_MAKEFILE=OFF ../fabianishere-brainfuck
 cmake --build . --config Release
-cd ..
 cat <<EOF>/bin/fabianishere-brainfuck
 #!/bin/bash
 $MAINDIR/fabianishere-brainfuck-build/brainfuck < \$@
@@ -38,7 +37,6 @@ chmod +x /bin/fabianishere-brainfuck
 setup_brandly-bf-go() {
 go get github.com/brandly/bf.go
 cd $GOPATH/src/github.com/brandly/bf.go && go install
-cd $MAINDIR
 mv $GOPATH/bin/bf.go $GOPATH/bin/brandly-bf-go
 cat <<EOF>/bin/brandly-bf-go
 #!/bin/bash
@@ -51,7 +49,6 @@ setup_rdebath-brainfuck() {
 $CLONE https://github.com/rdebath/Brainfuck.git rdebath-brainfuck
 cd rdebath-brainfuck/tritium
 make
-cd ../..
 cat <<EOF>/bin/rdebath-brainfuck
 #!/bin/bash
 $MAINDIR/rdebath-brainfuck/tritium/bfi -b \$@
@@ -61,6 +58,7 @@ chmod +x /bin/rdebath-brainfuck
 
 setup_weirdgiraffe-gobfcli() {
 go get github.com/weirdgiraffe/gobfcli
+cd $GOPATH/src/github.com/weirdgiraffe/gobfcli && go install
 mv $GOPATH/bin/gobfcli $GOPATH/bin/weirdgiraffe-gobfcli
 cat <<EOF>/bin/weirdgiraffe-gobfcli
 #!/bin/bash
@@ -76,5 +74,5 @@ COMPETITORS+=" rdebath-brainfuck"
 COMPETITORS+=" weirdgiraffe-gobfcli"
 
 mkdir -p /output/
-for i in $COMPETITORS; do setup_$i; done
+for i in $COMPETITORS; do setup_$i; cd $MAINDIR; done
 for i in $COMPETITORS; do /root/.cabal/bin/bench "$i /contest.bf" --output /output/$i.html; done
