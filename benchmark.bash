@@ -78,6 +78,18 @@ EOF
 chmod +x /bin/kgabis-brainfuck-go
 }
 
+setup_brucehsu-bbfi() {
+go get github.com/brucehsu/bbfi
+cd $GOPATH/src/github.com/brucehsu/bbfi && go install
+mv $GOPATH/bin/bbfi $GOPATH/bin/brucehsu-bbfi
+cat <<EOF>/bin/brucehsu-bbfi
+#!/bin/bash
+$GOPATH/bin/brucehsu-bbfi <\$@
+EOF
+chmod +x /bin/brucehsu-bbfi
+}
+
+
 setup_weirdgiraffe-gobfcli() {
 go get github.com/weirdgiraffe/gobfcli
 cd $GOPATH/src/github.com/weirdgiraffe/gobfcli && go install
@@ -95,6 +107,7 @@ COMPETITORS+=" brandly-bf-go"
 COMPETITORS+=" rdebath-brainfuck"
 COMPETITORS+=" lazureykis-brainfuck"
 COMPETITORS+=" kgabis-brainfuck-go"
+COMPETITORS+=" brucehsu-bbfi"
 COMPETITORS+=" weirdgiraffe-gobfcli"
 
 mkdir -p /output/
