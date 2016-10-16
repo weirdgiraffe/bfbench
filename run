@@ -1,1 +1,1 @@
-docker run --rm -it -v$(pwd):/output/ -v$(pwd)/benchmark.bash:/benchmark weirdgiraffe/bfbench
+docker run --rm -t -v$(pwd):/output/ -v$(pwd)/benchmark.bash:/benchmark weirdgiraffe/bfbench
