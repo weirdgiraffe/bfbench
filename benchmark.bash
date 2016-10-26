@@ -113,3 +113,4 @@ mkdir -p /output/
 for i in $COMPETITORS; do setup_$i; cd $MAINDIR; done
 echo ''> /output/README.md
 for i in $COMPETITORS; do $i /contest.bf > /dev/null; bench "$i /contest.bf" --output /output/$i.html | tee -a /output/README.md; done
+sed -i 's/$/\n/' /output/README.md
